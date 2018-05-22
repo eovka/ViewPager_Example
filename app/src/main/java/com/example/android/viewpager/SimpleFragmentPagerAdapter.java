@@ -15,17 +15,22 @@
  */
 package com.example.android.viewpager;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import java.util.ConcurrentModificationException;
 
 /**
  * Provides the appropriate {@link Fragment} for a view pager.
  */
 public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
+    private Context context = null;
 
-    public SimpleFragmentPagerAdapter(FragmentManager fm) {
+    public SimpleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
+        this.context = context;
     }
 
     @Override
@@ -46,5 +51,23 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 5;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return context.getString(R.string.monday);
+            case 1:
+                return context.getString(R.string.tuesday);
+            case 2:
+                return context.getString(R.string.wednesday);
+            case 3:
+                return context.getString(R.string.thursday);
+            case 4:
+                return context.getString(R.string.friday);
+            default:
+                return context.getString(R.string.friday);
+        }
     }
 }
